@@ -1,13 +1,22 @@
 {
-  "name": "renderer",
+  "name": "electron-vue",
   "version": "0.1.0",
   "private": true,
+  "main": "public/main.js",
+  "homepage": "./",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "electron-start": "electron .",
+    "electron-dev": "concurrently \"BROWSER=none yarn serve\" \"wait-on http://localhost:8080 && electron .\"",
+    "preelectron-pack": "yarn build",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64  --prune=true --out=release-builds --darwinDarkModeSupport=true",
+    "package-win": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Electron Tutorial App\"",
+    "package-linux": "electron-packager . electron-tutorial-app --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds"
   },
   "dependencies": {
+    "electron-is-dev": "^1.0.1",
     "vue": "^2.5.22"
   },
   "devDependencies": {
@@ -15,9 +24,13 @@
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
     "babel-eslint": "^10.0.1",
+    "concurrently": "^4.1.0",
+    "electron": "^4.0.4",
+    "electron-packager": "^13.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.5.21",
+    "wait-on": "^3.2.0"
   },
   "eslintConfig": {
     "root": true,
